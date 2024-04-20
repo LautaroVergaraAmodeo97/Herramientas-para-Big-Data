@@ -132,7 +132,7 @@ hive> CREATE INDEX index_students ON TABLE students(id)
  > WITH DEFERRED REBUILD ;
 ```
 
-
+![Terminal HIVE1](Img/SQL.jpg)
 
 
 # 5) No-SQL
@@ -146,7 +146,14 @@ En este caso vamos a utilizar el archivo docker-compose-v3.yml para estos ejerci
 - HBase:
 ```
 	1- sudo docker exec -it hbase-master hbase shell
-
+```
+sudo: Es un comando que se utiliza en sistemas Unix y Linux para ejecutar otros comandos con privilegios de superusuario.
+docker exec: Es un comando de Docker que se utiliza para ejecutar un comando dentro de un contenedor en ejecución.
+-it: Son opciones de línea de comandos que se utilizan con docker exec para indicar que se desea interactuar con el contenedor de manera interactiva y asignar un terminal.
+hbase-master: Es el nombre o el identificador del contenedor de Docker que deseas ejecutar. En este caso, se está indicando que se desea ejecutar el comando dentro del 	contenedor llamado "hbase-master".
+hbase shell: Es el comando que se ejecutará dentro del contenedor de Docker. hbase shell se utiliza para iniciar una interfaz de línea de comandos interactiva para interactuar 
+ con HBase. Desde esta interfaz, puedes ejecutar comandos de HBase para administrar bases de datos, tablas, etc.
+```
 		create 'personal','personal_data'
 		list 'personal'
 		put 'personal',1,'personal_data:name','Juan'
@@ -160,12 +167,19 @@ En este caso vamos a utilizar el archivo docker-compose-v3.yml para estos ejerci
 		put 'personal',4,'personal_data:name','Eliecer'
 		put 'personal',4,'personal_data:city','Caracas'
 		get 'personal','4'
-
-	2-En el namenode del cluster:
+```
+```	2-En el namenode del cluster:
 
 		hdfs dfs -put personal.csv /hbase/data/personal.csv
+```
+hdfs: Es el comando principal para interactuar con el sistema de archivos distribuido de Hadoop (Hadoop Distributed File System, HDFS).
+dfs: Es un subcomando de hdfs que se utiliza para realizar operaciones relacionadas con el sistema de archivos distribuido.
+-put: Es una opción del subcomando dfs que se utiliza para copiar archivos o directorios desde el sistema de archivos local a HDFS.
+personal.csv: Es el nombre del archivo local que se copiará a HDFS.
+/hbase/data/personal.csv: Es la ruta en HDFS donde se copiará el archivo personal.csv.
 
-	3-sudo docker exec -it hbase-master bash
+
+```	3-sudo docker exec -it hbase-master bash
 		
     hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=',' -Dimporttsv.columns=HBASE_ROW_KEY,personal_data:name,personal_data:city,personal_data:age personal hdfs://namenode:9000/hbase/data/personal.csv
 		hbase shell
@@ -178,26 +192,63 @@ En este caso vamos a utilizar el archivo docker-compose-v3.yml para estos ejerci
 		put 'album','label1','image:source','/tmp/pic1.jpg'
 		get 'album','label1'
 ```
+sudo: Es un comando utilizado en sistemas basados en Unix/Linux para ejecutar otro comando con privilegios de superusuario (root).
+docker exec: Es el comando de Docker utilizado para ejecutar un comando dentro de un contenedor en ejecución.
+-it: Son opciones que se utilizan junto con docker exec para indicar que se desea abrir una sesión interactiva en el contenedor y conectarla al terminal actual.
+hbase-master: Es el nombre del contenedor Docker en el que se desea ejecutar el comando.
+bash: Es el comando que se ejecutará dentro del contenedor. En este caso, se ejecutará el shell Bash, lo que permite interactuar con el sistema operativo del contenedor de manera interactiva.
+
 
 - MongoDB:
 ```
 	1) 	sudo docker cp iris.csv mongodb:/data/iris.csv
 		  sudo docker cp iris.json mongodb:/data/iris.json
+```
+sudo: es un comando que se utiliza en sistemas basados en Unix/Linux para ejecutar otro comando con privilegios de superusuario (root).
+docker cp: es un comando de Docker que se utiliza para copiar archivos o directorios entre el sistema de archivos del host y un contenedor de Docker.
+iris.csv: es el nombre del archivo que se va a copiar desde el sistema de archivos del host.
+mongodb:/data/iris.csv: especifica la ruta de destino dentro del contenedor de Docker donde se copiará el archivo. En este caso, mongodb es el nombre del contenedor y /data/iris.csv es la ruta en la que se colocará el archivo dentro del contenedor.
 
+```
 	2)  sudo docker exec -it mongodb bash
-
+```
+sudo: es un comando que se utiliza en sistemas basados en Unix/Linux para ejecutar otro comando con privilegios de superusuario (root).
+docker exec: es un comando de Docker que se utiliza para ejecutar un comando dentro de un contenedor en ejecución.
+-it: son opciones que se utilizan con el comando docker exec para abrir una sesión interactiva en el contenedor.
+mongodb: es el nombre del contenedor en el que se ejecutará el comando.
+bash: es el comando que se ejecutará dentro del contenedor. En este caso, abrirá un intérprete de comandos Bash en el contenedor.
+```
 	3) 	mongoimport /data/iris.csv --type csv --headerline -d dataprueba -c iris_csv
 		  mongoimport --db dataprueba --collection iris_json --file /data/iris.json --jsonArray
+```
+mongoimport: es el comando que se utiliza para importar datos a MongoDB desde un archivo.
+/data/iris.csv: es la ruta del archivo CSV que se importará a MongoDB.
+--type csv: especifica el tipo de archivo que se está importando, en este caso, CSV.
+--headerline: indica que la primera línea del archivo CSV contiene los nombres de las columnas.
+-d dataprueba: especifica la base de datos de MongoDB a la que se importarán los datos. En este caso, la base de datos se llama "dataprueba".
+-c iris_csv: especifica la colección de MongoDB en la que se importarán los datos. En este caso, la colección se llama "iris_csv".
 
+```
 	4) mongosh
 		use dataprueba
 		show collections
 		db.iris_csv.find()
 		db.iris_json.find()
-	
+```
+
+ ```
 	5) 	mongoexport --db dataprueba --collection iris_csv --fields sepal_length,sepal_width,petal_length,petal_width,species --type=csv --out /data/iris_export.csv
 		mongoexport --db dataprueba --collection iris_json --fields sepal_length,sepal_width,petal_length,petal_width,species --type=json --out /data/iris_export.json
-				
+
+```
+mongoexport: es el comando que se utiliza para exportar datos desde MongoDB.
+--db dataprueba: especifica la base de datos de MongoDB de la que se exportarán los datos. En este caso, la base de datos se llama "dataprueba".
+--collection iris_csv: especifica la colección de MongoDB de la que se exportarán los datos. En este caso, la colección se llama "iris_csv".
+--fields sepal_length,sepal_width,petal_length,petal_width,species: especifica los campos que se exportarán del documento. En este caso, se exportarán los campos sepal_length, sepal_width, petal_length, petal_width y species.
+--type=csv: especifica el tipo de archivo de salida, que en este caso es CSV.
+--out /data/iris_export.csv: especifica la ubicación y el nombre del archivo CSV de salida. En este caso, el archivo CSV se guardará en /data/iris_export.csv
+```
+
 	6) 	Descargar desde https://search.maven.org/search?q=g:org.mongodb.mongo-hadoop los jar:
 		https://search.maven.org/search?q=a:mongo-hadoop-hive
 		https://search.maven.org/search?q=a:mongo-hadoop-spark
@@ -280,24 +331,125 @@ En este caso vamos a utilizar el archivo docker-compose-v3.yml para estos ejerci
 		ORDER BY index
 ```
 
-- Zeppelin
-```
-	HDFS:
-	En la máquina anfitrión probar WebHDFS:
-		curl "http://<IP_Anfitrion>:9870/webhdfs/v1/?op=LISTSTATUS"
-	En el interpreter:
-		En la parte de "file"
-			Variable hdfs.url = http://<IP_Anfitrion>:9870/webhdfs/v1/
-	En nuevo notebook / nueva nota:
-		%file
-		ls /
+# 6) Spark
+Se pueden utilizar los entornos docker-compose-v4.yml y docker-compose-kafka.yml
 
-	Neo4J:
-	En el interpreter
-		En la parte de "neo4J"
-			Variables 
-				neo4J.url = http://<IP_Anfitrion>:7687
-				neo4j.auth.user	= neo4j
-				neo4j.auth.password	= zeppelin
+Spark y Scala:
+Ubicarse en la línea de comandos del Spark master y comenzar PySpark.
 ```
-- 
+  docker exec -it spark-master bash
+  /spark/bin/pyspark --master spark://spark-master:7077
+
+```
+
+docker exec -it spark-master bash: ejecuta un comando dentro del contenedor de Docker llamado spark-master y abre una terminal interactiva (bash) en ese contenedor.
+/spark/bin/pyspark: una vez dentro del contenedor, ejecuta el comando pyspark, que inicia una sesión interactiva de PySpark. PySpark es la API de Python para Apache Spark, que permite interactuar con Spark utilizando Python.
+--master spark://spark-master:7077: especifica el nodo maestro de Spark al que se conectará PySpark. En este caso, se conectará al nodo maestro con la dirección spark-master y el puerto 7077. Esto permite que PySpark se comunique con el clúster de Spark y distribuya las tareas de procesamiento de manera adecuada.
+
+Cargar raw-flight-data.csv desde HDFS.
+
+```
+	from pyspark.sql.types import *
+
+	flightSchema = StructType([
+	StructField("DayofMonth", IntegerType(), False),
+	StructField("DayOfWeek", IntegerType(), False),
+	StructField("Carrier", StringType(), False),
+	StructField("OriginAirportID", IntegerType(), False),
+	StructField("DestAirportID", IntegerType(), False),
+	StructField("DepDelay", IntegerType(), False),
+	StructField("ArrDelay", IntegerType(), False),
+	]);
+
+	flights = spark.read.csv('hdfs://namenode:9000/data/flights/raw-flight-data.csv', schema=flightSchema, header=True)
+  
+  	flights.show()
+	  +----------+---------+-------+---------------+-------------+--------+--------+
+|DayofMonth|DayOfWeek|Carrier|OriginAirportID|DestAirportID|DepDelay|ArrDelay|
++----------+---------+-------+---------------+-------------+--------+--------+
+|        19|        5|     DL|          11433|        13303|      -3|       1|
+|        19|        5|     DL|          14869|        12478|       0|      -8|
+|        19|        5|     DL|          14057|        14869|      -4|     -15|
+|        19|        5|     DL|          15016|        11433|      28|      24|
+|        19|        5|     DL|          11193|        12892|      -6|     -11|
+|        19|        5|     DL|          10397|        15016|      -1|     -19|
+|        19|        5|     DL|          15016|        10397|       0|      -1|
+|        19|        5|     DL|          10397|        14869|      15|      24|
+|        19|        5|     DL|          10397|        10423|      33|      34|
+|        19|        5|     DL|          11278|        10397|     323|     322|
+|        19|        5|     DL|          14107|        13487|      -7|     -13|
+|        19|        5|     DL|          11433|        11298|      22|      41|
+|        19|        5|     DL|          11298|        11433|      40|      20|
+|        19|        5|     DL|          11433|        12892|      -2|      -7|
+|        19|        5|     DL|          10397|        12451|      71|      75|
+|        19|        5|     DL|          12451|        10397|      75|      57|
+|        19|        5|     DL|          12953|        10397|      -1|      10|
+|        19|        5|     DL|          11433|        12953|      -3|     -10|
+|        19|        5|     DL|          10397|        14771|      31|      38|
+|        19|        5|     DL|          13204|        10397|       8|      25|
++----------+---------+-------+---------------+-------------+--------+--------+
+only showing top 20 rows
+  	flights.describe()
+```
+
+Ubicarse en la línea de comandos del Spark master y comenzar Scala.
+
+```
+  docker exec -it spark-master bash
+  spark/bin/spark-shell --master spark://spark-master:7077
+```
+
+docker exec -it spark-master bash: ejecuta un comando dentro del contenedor de Docker llamado spark-master y abre una terminal interactiva (bash) en ese contenedor.
+spark/bin/spark-shell: una vez dentro del contenedor, ejecuta el comando spark-shell, que inicia una sesión interactiva de Spark. spark-shell es la interfaz de línea de comandos de Spark para Scala, que permite interactuar con Spark utilizando el lenguaje de programación Scala.
+--master spark://spark-master:7077: especifica el nodo maestro de Spark al que se conectará Spark. En este caso, se conectará al nodo maestro con la dirección spark-master y el puerto 7077. Esto permite que Spark se comunique con el clúster de Spark y distribuya las tareas de procesamiento de manera adecuada.
+
+
+Kafka
+```
+			sudo docker-compose up -d
+			sudo docker exec -it kafka_container bash
+			cd /opt/kafka/bin
+			sh kafka-topics.sh --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 100 --topic demo
+			sh kafka-topics.sh --list --bootstrap-server kafka:9092
+			sh kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic demo 
+			sh kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic demo --from-beginning
+			sh kafka-console-producer.sh --broker-list localhost:9092 --topic demo
+				Escribir desde la consola del productor "Esto es una Prueba 1" y enviar.
+				
+			Acceder a <IP_Anfitrion>:9000	
+	
+			Desde Scala:
+			val df = spark.readStream
+					.format("kafka")
+					.option("kafka.bootstrap.servers", "192.168.1.100:9092")
+					.option("subscribe", "json_topic")
+					.option("startingOffsets", "earliest") // From starting
+					.load()
+
+			df.printSchema()
+			
+			Más ejemplos:
+				https://github.com/dbusteed/kafka-spark-streaming-example
+						
+			Otra forma de ejecutar:
+			docker-compose exec kafka kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic TenMinPsgCnts --from-beginning
+```
+sudo docker-compose up -d: Inicia los contenedores definidos en el archivo docker-compose.yml en modo demonio (-d). Esto inicia los contenedores de Kafka, Zookeeper y otros servicios necesarios definidos en el archivo.
+sudo docker exec -it kafka_container bash: Ejecuta un shell interactivo (bash) en el contenedor de Docker que ejecuta Kafka.
+cd /opt/kafka/bin: Cambia al directorio que contiene los scripts de Kafka.
+sh kafka-topics.sh --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 100 --topic demo: Crea un nuevo tema llamado "demo" con un factor de replicación de 1, 100 particiones y usando el servidor de arranque (bootstrap server) en kafka:9092.
+sh kafka-topics.sh --list --bootstrap-server kafka:9092: Lista todos los temas presentes en el clúster Kafka usando el servidor de arranque en kafka:9092.
+sh kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic demo: Proporciona detalles sobre el tema "demo", como el número de particiones y los líderes de particiones, utilizando el servidor de arranque en kafka:9092.
+sh kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic demo --from-beginning: Inicia un consumidor de Kafka que lee mensajes del principio del tema "demo" utilizando el servidor de arranque en kafka:9092.
+sh kafka-console-producer.sh --broker-list localhost:9092 --topic demo: Inicia un productor de Kafka que envía mensajes al tema "demo" utilizando el corredor en localhost:9092.
+
+
+
+Y con esto finalizamos toda esta guía. Espero que le haya sido útil.
+
+
+-------------------------------------------Aclaración----------------------------------------------------------------------
+
+
+
+Insertar error en la consola
