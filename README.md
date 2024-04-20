@@ -53,8 +53,9 @@ Este comando copia un archivo desde tu sistema operativo principal (especificado
 ```
   sudo docker cp <path><archivo> namenode:/home/Datasets/<archivo>
 ```
+Este sería el resultado que tienes que obtener
 
-
+![Terminal HDFS](Img/HDFS1.jpg)
 
 # 2) Hive
 
