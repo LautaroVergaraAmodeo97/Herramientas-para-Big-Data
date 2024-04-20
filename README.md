@@ -14,7 +14,7 @@ hostname -I
 ```
 A usted le va a aparecer esto. Eso quiere decir que usted ya puede utilizar la terminal de Linux desde Windows con toda comodidad.
 
-![Terminal putty] (https://drive.google.com/file/d/1XOIVcGGXQidxTvCKdD9RU1AtoCCZR0mK/view?usp=sharing)
+![Terminal putty] (img/putty)
 
 
 
