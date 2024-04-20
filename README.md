@@ -21,7 +21,8 @@ Una vez instalado Putty vamos a proceder a seguir con la guía.
 Lo que vamos a hacer ahora es clonar nuestro repositorio e inicializar nuestro docker-compose
 ```
 https://github.com/LautaroVergaraAmodeo97/Herramientas-para-Big-Data.git
-
+cd herramientas_big_data
+sudo docker-compose -f docker-compose-vX.yml up -d
 ```
 
 # Entorno Docker con Hadoop,Spark y Hive
@@ -32,29 +33,28 @@ En este espacio vamos a mostrarle a usted como implementar Hadoop,Hive,HBase,Mon
 
 En este caso vamos a utilizar el archivo docker-compose-v1.yml para este ejercicio.
 
-- Lo primero que vamos a realizar es el copiado del archivo a una carpeta llamada Datasets dentro del contenedor "namenode"
-
+Este comando ejecuta un shell bash dentro del contenedor Docker llamado namenode. La opción -it se utiliza para iniciar una sesión interactiva y asignar un pseudo terminal al contenedor. Esto permite interactuar con el shell dentro del contenedor.
 ```
   sudo docker exec -it namenode bash
+```
+Una vez dentro del contenedor, este comando cambia el directorio de trabajo actual a /home.
+```
   cd home
+```
+ Este comando crea un nuevo directorio llamado Datasets dentro del directorio /home.
+```
   mkdir Datasets
+```
+Este comando sale del shell dentro del contenedor Docker. Una vez ejecutado, volverás al shell de tu sistema operativo principal.
+```
   exit
+```
+Este comando copia un archivo desde tu sistema operativo principal (especificado por <path><archivo>) al contenedor Docker llamado namenode, dentro del directorio /home/Datasets/ del contenedor. 
+```
   sudo docker cp <path><archivo> namenode:/home/Datasets/<archivo>
 ```
-- Nos ubicamos en el contenedor "namenode"
-```
-  sudo docker exec -it namenode bash
-```
-- Vamos a crear un directorio HDFS llamado "/data"
-```
-  hdfs dfs -mkdir -p /data
-```
-- Por último copiadmos los archivos csv provisto a HDSF
-```
-  hdfs dfs -put /home/Datasets/*(nombre del archivo csv) /data
-```
 
-Todo este proceso se puede realizar mediante Putty.
+
 
 # 2) Hive
 
