@@ -96,9 +96,23 @@ hive -f <script.hql>
 
 
 
-# 3) SQL
+# 3) Formato de Almacenamiento 
+Las tablas creadas en el punto 2 a partir de archivos en formato csv, deben ser almacenadas en formato Parquet + Snappy. Tener en cuenta además de aplicar particiones para alguna de las tablas.
 
-En esta sección de SQL vamos a ver como trabajamos con este tipo de consultas para poder mejorar la velocidad de consulta ya que al trabajar con Big Data esto consume mucho espacio en memoria. Así que le recomendamos realizar estas acciones para así poder achicar un poco el espacio de memoria consumida.
+Acceder al contenedor de Hive Server: Utiliza el comando sudo docker exec -it hive-server bash en Putty para acceder al contenedor de Hive Server.
+```
+  sudo docker exec -it hive-server bash
+```
+
+Iniciar la CLI de Hive: Una vez dentro del contenedor, ejecuta el comando hive para iniciar la interfaz de línea de comandos de Hive.
+```
+  hive
+```
+
+Cambiar el formato de almacenamiento a Parquet: Utiliza el comando CREATE TABLE ... STORED AS PARQUET para crear nuevas tablas con el formato de almacenamiento Parquet.
+
+
+
 
 ```
 CREATE INDEX index_name
