@@ -61,22 +61,40 @@ Este sería el resultado que tienes que obtener
 
 En este caso vamos a utilizar el archivo docker-compose-v2.yml
 
-Vamos a crear tablas en Hive a partir de los csv ingestados en HDFS.
+![Terminal HIVE1](Img/HIVE1.jpg)
 
-Para poder realizar esto, primero nos tenemos que ubicar dentro del contendor correspondiente al servidor de Hive y ahí ejecutar los scrips que vamos a ir pasando.
 
+Luego ejecutamos esto
 ```
   sudo docker exec -it hive-server bash
+```
+sudo docker exec -it hive-server bash: Este comando ejecuta un contenedor de Docker con nombre hive-server y abre una sesión interactiva en el contenedor con el intérprete de comandos bash. Aquí está lo que hace cada parte del comando:
+	sudo: Es un comando que se usa para ejecutar otros comandos con privilegios de superusuario.
+	docker exec: Es un comando de Docker que se utiliza para ejecutar un comando dentro de un contenedor en ejecución.
+	-it: Es una opción que indica a Docker que abra la sesión de forma interactiva (Interactive Mode) y que se asocie con la entrada y salida estándar del terminal.
+	hive-server: Es el nombre del contenedor de Docker que se va a ejecutar.
+	bash: Es el comando que se ejecutará dentro del contenedor. En este caso, se abrirá una sesión de bash dentro del contenedor.
+
+```
   hive
 ```
-
+hive: Después de ejecutar el comando anterior y abrir una sesión en el contenedor, ahora estás dentro del contenedor de Docker. Una vez allí, puedes ejecutar el comando hive, que es el cliente de línea de comandos de Hive. Este comando te permite interactuar con Hive y ejecutar consultas SQL sobre los datos almacenados en Hadoop Distributed File System (HDFS) utilizando el lenguaje HiveQL.
 Anexo: Para poder ejecutar un script de Hive se requiere este comando. Además le ofrezco este pdf por si a usted le sigue interesando la sintaxis de Hive.
 
+El resultado debería ser este.
+
+![Terminal HIVE1](Img/HIVE2.jpg)
+
+Y para finalizar usted puede ejecutar la sintaxis de Hive dentro de la terminal.
+
+![Terminal HIVE1](Img/HIVE3.jpg)
+
+O para hacerlo más simple usted puede escribir esta sintaxis en su terminal y que se ejecute perfectamente.
 ```
 hive -f <script.hql>
 ```
 
-*Tengo que colocar aqui el PDF con el cheat sheets
+
 
 # 3) SQL
 
