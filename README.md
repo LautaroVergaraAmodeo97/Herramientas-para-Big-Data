@@ -16,10 +16,13 @@ A usted le va a aparecer esto. Eso quiere decir que usted ya puede utilizar la t
 
 ![Terminal putty](Img/putty.jpg)
 
-
-
-
 Una vez instalado Putty vamos a proceder a seguir con la guía.
+
+Lo que vamos a hacer ahora es clonar nuestro repositorio e inicializar nuestro docker-compose
+```
+https://github.com/LautaroVergaraAmodeo97/Herramientas-para-Big-Data.git
+
+```
 
 # Entorno Docker con Hadoop,Spark y Hive
 
