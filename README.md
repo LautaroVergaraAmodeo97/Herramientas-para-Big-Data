@@ -111,8 +111,19 @@ Iniciar la CLI de Hive: Una vez dentro del contenedor, ejecuta el comando hive p
 
 Cambiar el formato de almacenamiento a Parquet: Utiliza el comando CREATE TABLE ... STORED AS PARQUET para crear nuevas tablas con el formato de almacenamiento Parquet.
 
+![Terminal PARQUET](Img/PARQUET1.jpg)
+
+Aplicar compresión Snappy: Utiliza el comando ALTER TABLE ... SET TBLPROPERTIES para configurar la compresión Snappy en la tabla recién creada. Por ejemplo:
+
+![Terminal PARQUET2](Img/PARQUET2.jpg)
 
 
+Crear tablas particionadas: Utiliza el comando CREATE TABLE ... PARTITIONED BY para crear tablas particionadas.
+
+![Terminal PARQUET3](Img/PARQUET3.jpg)
+
+4) SQL
+La mejora en la velocidad de consulta que puede proporcionar un índice tiene el costo del procesamiento adicional para crear el índice y el espacio en disco para almacenar las referencias del índice. Se recomienda que los índices se basen en las columnas que utiliza en las condiciones de filtrado. El índice en la tabla puede degradar su rendimiento en caso de que no los esté utilizando. Crear índices en alguna de las tablas cargadas y probar los resultados:
 
 ```
 CREATE INDEX index_name
@@ -134,7 +145,7 @@ hive> CREATE INDEX index_students ON TABLE students(id)
  > WITH DEFERRED REBUILD ;
 ```
 
-# 4) No-SQL
+# 5) No-SQL
 
 Retomando un poco el rumbo a Big Data, nosotros utilizamos No-Sql porque están optimizadas para operaciones de lectura y escritura rápidas y pueden proporcionar un alto rendimiento para cargas de trabajo intensivas.
 
