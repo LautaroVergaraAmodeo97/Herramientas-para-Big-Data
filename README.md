@@ -449,7 +449,7 @@ Y con esto finalizamos toda esta guía. Espero que le haya sido útil.
 
 
 -------------------------------------------Aclaración----------------------------------------------------------------------
+A partir de NO-SQL tuve que dar teoría solamente debido a que mi máquina virtual se quedo sin espacios. Elimne los docker-compuses anteriores y le dí mucho más espacio a la máquina virtual pero no encontré la solución.
 
+![Terminal ERROR](Img/ERROR.jpg)
 
-
-Insertar error en la consola
